@@ -29,3 +29,4 @@
 - Anime Adaptation: **MAPPA / TOHO Animation**
 - Video Game Assets: **Bandai Namco Entertainment / Byking**
 - Notice: This project is a non-commercial, educational fan tribute. All characters, names, stills, and animation frames are property of their respective copyright holders.
+- Visual Generation Tooling: **Google Flow** generative media sessions for custom animation sequence footage and background plates.
