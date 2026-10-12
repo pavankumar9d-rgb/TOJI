@@ -1,0 +1,10 @@
+# Temporary inspection clone (scaffold reference)
+TOJI-SOURCE-REFERENCE/
+
+# Temporary video source downloads and processing work
+asset-work/
+
+# IDE / System artifacts
+.system_generated/
+*.log
+TOJI_ANTIGRAVITY_MASTER_INSTRUCTIONS (1).md
