@@ -1,0 +1,96 @@
+TASK: UPDATE THE EXISTING TOJI FUSHIGURO WEBSITE USING MY NEW GOOGLE FLOW ASSETS
+
+Work directly in the currently opened project workspace. The new Toji assets were generated separately in Google Flow. Find them, prepare them, and integrate them into the existing website. Do not merely tell me how to do it; perform the work.
+
+AUTHORITY AND SCOPE
+- If `TOJI_ANTIGRAVITY_MASTER_INSTRUCTIONS.md` is available in the workspace or attached context, read it first and follow its design, implementation, accessibility, performance, testing, and Git requirements.
+- This prompt supersedes ONLY the old web-fetching part of the asset-acquisition stage: use my newly generated local Google Flow assets as the source of truth. Do not waste time searching the internet for replacement Toji videos or images unless a required local asset is genuinely missing and I have not supplied it.
+- Project identity is Toji Fushiguro only. Remove all visible Minato/Naruto identity, names, artwork, abilities, branding, metadata, alt text, and stale image references from the finished site. Never use Minato as a visual or content substitute.
+- Preserve the existing app architecture and working interactions. Do not migrate frameworks or rebuild from scratch without a verified technical reason.
+- Do not search for ZIPs, archives, `*-master.zip`, or downloaded bundles. Do not ask me to upload the old source ZIP.
+
+STEP 1 — AUDIT THE WORKSPACE AND GIT FIRST
+1. Show the actual workspace root and inspect the current files, stack, asset paths, scroll/animation code, and Git state. Read `git status --short --branch`, `git remote -v`, `git branch --show-current`, and the latest commit when Git is available.
+2. The delivery repository is `https://github.com/pavankumar9d-rgb/TOJI.git`. Use it as the canonical destination. Do not push to any reference/scaffold repository. If the current folder is not that repository, clone the destination safely and work there; inspect any existing site source read-only and adapt it without destroying unrelated work. Preserve existing history. Never force-push or reset hard.
+3. Do not edit website source code until the supplied asset files have been located and validated and their frame sequences have been extracted and validated.
+
+STEP 2 — LOCATE MY GENERATED ASSETS WITHOUT ASKING ME
+Search the current workspace first. If they are not all there, check only ordinary user media locations available to the agent: Downloads, Desktop, Pictures, Videos, and a folder/collection export named `TOJI_WEBSITE_ASSETS`. Search for the filenames below case-insensitively and allow extensions such as `.png`, `.jpg`, `.jpeg`, `.webp`, `.mp4`, `.mov`, or `.webm` where technically appropriate. Do not crawl the entire drive, inspect archives, or assume a Flow web page is a locally downloaded file.
+
+Expected images:
+1. `TOJI_MASTER_REFERENCE.png` — identity reference only; use it to compare facial features, scar, hairstyle, clothing, and body proportions. It is not automatically a page hero.
+2. `TOJI_HERO_WIDE.png` — main hero artwork.
+3. `TOJI_PARTICLE_PORTRAIT.png` — front-facing portrait intended for background removal and the Three.js particle/point-cloud effect. This may have a flat chroma-green background; check it visually and do not treat green as transparency.
+4. `TOJI_FINAL_REVEAL_BACKGROUND.png` — background plate for the final section. It is intentionally a background plate without a character; do not expect a character to exist in it.
+5. `TOJI_WEAPON_DETAIL.png` — optional isolated weapon/prop detail; use only if it is present and visually coherent.
+6. `TOJI_DASH_START.png` — optional start/poster image for the dash section.
+
+Expected continuous source videos:
+7. `TOJI_EYE_REVEAL.mp4` — one continuous eye/head reveal, used to create 71 frames.
+8. `TOJI_WEAPON_SWEEP.mp4` — one continuous weapon draw/sweep, used to create 33 frames.
+9. `TOJI_EXPLOSIVE_DASH.mp4` — one continuous physical dash, used to create 71 frames.
+
+If Flow saved a different filename, inspect its real file type, dimensions, duration, and visual content before mapping it. Do not choose a file based on filename alone if there are multiple candidates. Do not rename an image or video to a different extension without actual conversion. Do not mistake a browser shortcut, HTML response, preview, or thumbnail for the original media file.
+
+STEP 3 — CREATE A SOURCE-ASSET MANIFEST AND MAP THE ASSETS
+Before editing app code, create `TOJI_ASSET_MANIFEST.md` in the canonical repository. For every expected image/video, record: expected name, actual resolved source path, detected format, dimensions or video duration, chosen destination, and validation result. Keep the supplied source files unmodified; copy or convert them into project assets as needed. Do not put raw source videos in the deployed public asset folder.
+
+Use the existing master-file paths if applicable. Unless the app has a verified better convention, map the assets as follows:
+- `TOJI_HERO_WIDE` -> `art/toji-hero.jpg` (convert to actual JPEG only if necessary; otherwise update code and manifest to use the real extension).
+- `TOJI_FINAL_REVEAL_BACKGROUND` -> `art/toji-final.jpg` or a same-purpose filename with the real extension. Use it as a background plate, not as a transparent character.
+- `TOJI_PARTICLE_PORTRAIT` -> `art/particle-toji.png`. Remove the green background with a suitable free/local method, preserve clean hair/shoulder edges, and verify real alpha transparency. Do not leave green fringing. If a trustworthy cutout cannot be produced locally, report this exact asset as failed instead of pretending it is transparent.
+- `TOJI_WEAPON_DETAIL` -> `art/weapons/inverted-spear.png` if present and suitable; optional only.
+- `TOJI_DASH_START` -> a local dash poster/fallback under `art/` if present; optional only.
+- Source videos -> `asset-work/toji-reveal-source.<real-extension>`, `asset-work/toji-weapon-source.<real-extension>`, and `asset-work/toji-dash-source.<real-extension>`. Keep these outside the deployed site; do not commit raw source videos unless there is a clear reason and they are reasonably sized.
+- Keep `TOJI_MASTER_REFERENCE` in a non-public `asset-work/reference/` or similar location for visual QA, unless the site genuinely uses it.
+
+Use the actual file extensions accurately. If converting PNG to JPEG, use a real conversion tool; do not simply change the filename extension. Preserve aspect ratio, do not stretch Toji, and visually review all crops.
+
+STEP 4 — VIDEO TO FRAMES: REQUIRED, DO NOT SKIP
+Use the actual three locally supplied videos. Do not substitute static images, remote video embeds, fabricated frames, duplicated frames, or frames from an unrelated clip. Use FFprobe/FFmpeg if available; if not, check for an already installed free/local decoder. Do not buy tools or APIs.
+
+Extract frames uniformly across the full usable duration of each complete clip, in chronological order. Do not export only the opening 33 or 71 frames. Follow the verified extraction routine and the exact output paths in `TOJI_ANTIGRAVITY_MASTER_INSTRUCTIONS.md` Section 2.4 if that file is present. Normalize output consistently to 1280x720 while preserving the source composition (crop or letterbox intentionally; never stretch the character). Save JPEG frames with the exact paths/names below:
+- Reveal video: exactly 71 unique frames -> `frames/toji-reveal/001.jpg` through `frames/toji-reveal/071.jpg`.
+- Weapon video: exactly 33 unique frames -> `frames/toji-weapon/001.jpg` through `frames/toji-weapon/033.jpg`.
+- Dash video: exactly 71 unique frames -> `frames/toji-dash/frame_001.jpg` through `frames/toji-dash/frame_071.jpg`.
+Total: exactly 175 frames.
+
+Validate each source using FFprobe or another real decoder. Validate each output file opens as an image, has correct dimensions, is non-empty, and is ordered correctly. Create contact sheets for all three sequences and inspect them for consistent Toji identity, face/scar/clothing continuity, coherent weapon geometry, body mechanics, accidental cuts, repeated/black frames, and severe flicker. Do not fabricate or duplicate frames to reach the target count. Write all outcomes to `TOJI_ASSET_MANIFEST.md` and `TOJI_ASSET_VALIDATION_REPORT.md`.
+
+ASSET GATE — STRICT
+- Required for this build: the hero image, final-background plate, particle portrait with true transparency or a clearly documented viable local fallback, all three valid source videos, and all 175 validated frames.
+- The master reference is required for visual consistency checks if present. Weapon detail and dash poster are optional and must not block progress.
+- If any required input or any required frame output is missing or invalid, do not modify application source code. Finish attempts for every supplied image/video so the report is complete. Produce a concise, exact blocker report naming each missing/failed input and output path, what was attempted, the actual error, and exactly what I must provide or fix. Do not claim downloads, conversions, or validation passed when they did not. You may commit/push the audit and asset reports if Git access works, but do not begin website implementation until the gate passes.
+
+STEP 5 — INTEGRATE THE VERIFIED ASSETS INTO THE WEBSITE
+Only after the asset gate passes:
+1. Read the current code and adapt existing working components and interactions; avoid a needless rewrite. Update every asset import/path to the locally prepared files and remove any stale Minato artwork/text/references.
+2. Build a premium, restrained Toji visual experience: cinematic art direction, strong negative space, careful responsive crops, accurate Toji identity, realistic movement, minimal copy, no generic gaming HUD or excessive neon effects. Do not copy an existing website's exact layout or use any other character's visual identity.
+3. Use `frames/toji-reveal/` for the opening sticky/scroll sequence; map scroll progress continuously from frame 1 to 71. Use `frames/toji-weapon/` for a controlled pointer/touch weapon scrub from frame 1 to 33. Use `frames/toji-dash/` for the movement sequence from frame 1 to 71. Scrolling upward must reverse the sequences cleanly.
+4. Implement smooth frame scrubbing with GSAP ScrollTrigger (`scrub` configured appropriately) if compatible with the existing app, otherwise a well-managed native scroll position plus a single `requestAnimationFrame` interpolation loop. Do not update only on coarse scroll events, use `setInterval` as the animation engine, or decode all 175 frames in one blocking loop. Preload only a small lead-in window, limit decode concurrency, handle failed images, and release memory when practical.
+5. Smooth page scrolling must remain natural and must not hijack the mouse wheel or break anchors, keyboard navigation, mobile touch, or `prefers-reduced-motion`. Add Lenis only if it can be integrated correctly with the real stack and ScrollTrigger; otherwise keep native page scrolling and make the frame scrubbing itself smooth.
+6. Use the particle portrait only if a real transparent cutout was validated. Keep Three.js point count and render resolution moderate for an 8 GB RAM laptop with integrated graphics. Respect device pixel ratio caps, dispose resources, handle WebGL failure, and provide a static accessible fallback.
+7. Use the final image as the background plate for its section, with contrast-safe text and restrained effects. Never assume it contains a rendered character. Use optional weapon/dash images only if they improve the design and match the validated footage.
+8. All runtime assets must be local paths in the project, not third-party hotlinks. Preserve original aspect ratio and include responsive desktop/mobile layouts, semantic text, visible focus, keyboard-accessible controls, and reduced-motion fallbacks.
+9. React Bits and ThreeUI may be checked for a genuinely useful and compatible component, but do not migrate a static vanilla website or add dependencies just for appearance. Use only components that fit the actual stack; keep the experience performant and coherent.
+
+STEP 6 — TEST, COMMIT, AND PUSH REGULARLY
+Use `https://github.com/pavankumar9d-rgb/TOJI.git` as the only destination remote for delivery. Do not push to the reference scaffold repo. Preserve remote history, never force-push, never expose credentials, and do not stage everything blindly.
+
+Commit and push meaningful reviewed checkpoints, not one giant final commit:
+1. workspace audit and the asset manifest/report;
+2. the validated prepared assets/frames that are needed for the site (exclude temporary source videos, caches, node_modules, build output, secrets, and irrelevant files; ensure public-repository redistribution is appropriate before committing generated artwork);
+3. hero and main structure using Toji assets;
+4. scroll-linked reveal and weapon/dash sequences;
+5. particle effect, responsive behavior, accessibility, and loading/error fallbacks;
+6. final bug fixes and test report.
+
+Before every commit: inspect `git status`, run `git diff --check`, review staged paths/diff, and stage only explicit relevant files. Use truthful commit messages. Push each checkpoint promptly, then verify the remote branch actually advanced; do not claim a push succeeded without confirmation. If Git authentication or the network blocks a push, retain the local commit and report its hash and exact blocker; never force-push.
+
+Run the available build/test/lint commands and browser checks. Test desktop and mobile layouts, forward/backward scroll scrubbing, keyboard/touch use, reduced motion, loading failures, page refresh mid-sequence, and WebGL-disabled fallback. Verify no network dependency is required to load the final Toji artwork/sequences. Create `TOJI_IMPLEMENTATION_REPORT.md` with actual tests and results.
+
+FINAL REPORT
+If blocked at the asset gate: tell me exactly which asset is missing/invalid, the resolved or attempted source path, expected destination path, failure reason, and one precise action needed from me. Do not implement the website yet.
+If completed: report the implemented features, exact frame counts, tests actually run and their outcomes, repository URL/branch, verified commit hashes, push status, and any unresolved issues. Be honest about anything not completed.
+
+EXECUTE NOW. Start with the workspace/Git audit, locate the new Google Flow assets, validate and process them, extract and verify all 175 frames, and only then modify the website. Do not ask me to write more instructions, do not search for ZIPs, and do not stop after making a plan.
