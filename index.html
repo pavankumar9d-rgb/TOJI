@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TOJI FUSHIGURO — 伏黒甚爾 / The Sorcerer Killer</title>
+  <meta name="description" content="Cinematic scroll-driven tribute to Toji Fushiguro (The Sorcerer Killer) featuring butter-smooth canvas sequence scrubbing, Three.js particle portrait, and interactive cursed arsenal." />
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@300;400;600&family=Shippori+Mincho:wght@500;700;800&family=Space+Grotesk:wght@300;500;700&family=Zen+Kaku+Gothic+New:wght@400;700;900&display=swap" rel="stylesheet" />
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="toji.css" />
+
+  <!-- Import Map for Three.js Modules -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ══════════ PRELOADER — 天与呪縛 ══════════ -->
+  <div class="loader" id="loader" role="progressbar" aria-label="Loading assets">
+    <div class="loader__inner">
+      <svg class="loader__emblem" viewBox="0 0 90 90" aria-hidden="true">
+        <circle class="sealring" cx="45" cy="45" r="40" />
+        <circle class="sealring sealring--inner" cx="45" cy="45" r="28" />
+        <!-- Inverted Spear silhouette in emblem -->
+        <path class="spear-icon" d="M45 15 L50 32 L47 32 L47 70 L43 70 L43 32 L40 32 Z" opacity="0.85" />
+      </svg>
+      <div class="loader__glyph">天与呪縛</div>
+      <div class="loader__bar"><span id="loaderFill"></span></div>
+      <div class="loader__meta">
+        <span id="loaderMsg">RESTRICTION PROTOCOL</span>
+        <span id="loaderPct">00%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ AMBIENT LAYERS ══════════ -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <canvas class="ambient-dust" id="dustCanvas" aria-hidden="true"></canvas>
+
+  <!-- ══════════ FIXED CHROME NAVIGATION ══════════ -->
+  <header class="chrome" id="chrome">
+    <a class="chrome__brand" href="#top" aria-label="Toji Fushiguro home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M12 2L15 8L12 11L9 8Z" fill="currentColor"/>
+        <path d="M12 11V22M9 16H15"/>
+      </svg>
+      <span>伏黒甚爾 · TOJI</span>
+    </a>
+    <nav class="chrome__nav" aria-label="Primary navigation">
+      <a href="#top">AWAKEN</a>
+      <a href="#particles">RESTRICTION</a>
+      <a href="#weapon">ARSENAL</a>
+      <a href="#dash">RUSH</a>
+      <a href="#spotlight">REVEAL</a>
+    </nav>
+    <div class="chrome__status" id="chromeStatus">CURSED ENERGY 0.00</div>
+  </header>
+
+  <!-- Side Rails -->
+  <div class="rail rail--left" aria-hidden="true">
+    <span>ZENIN DEFECTOR · 術師殺し · HEAVENLY RESTRICTION</span>
+  </div>
+  <div class="rail rail--right" aria-hidden="true">
+    <span id="railFps">SYNC 60 FPS</span>
+  </div>
+
+  <main>
+
+    <!-- ══════════ ACT I — SCROLL-DRIVEN REVEAL SEQUENCE ══════════ -->
+    <section class="scrub" id="top">
+      <div class="scrub__sticky">
+        <canvas id="revealCanvas" aria-label="Toji Fushiguro opening sequence"></canvas>
+        <img class="scrub__fallback" id="revealFallback" src="art/toji-hero.jpg" alt="Toji Fushiguro overlooking the shrine gates" hidden />
+        <div class="scrub__scrim" aria-hidden="true"></div>
+
+        <!-- Opening Typography Lockup -->
+        <div class="titleblock" id="titleblock">
+          <p class="titleblock__kicker">術師殺し · THE SORCERER KILLER</p>
+          <h1 class="titleblock__jp">伏黒<span>甚爾</span></h1>
+          <p class="titleblock__en">T O J I &nbsp; F U S H I G U R O</p>
+        </div>
+
+        <!-- Narrative Phases -->
+        <div class="phase-overlay">
+          <div class="phase-text active" id="phase0">
+            <p class="phase-text__kanji">天与呪縛</p>
+            <h2 class="phase-text__en">ZERO CURSED ENERGY</h2>
+            <p class="phase-text__quote">Born with not an ounce of cursed energy, in exchange for superhuman flesh.</p>
+          </div>
+          <div class="phase-text" id="phase1">
+            <p class="phase-text__kanji">肉体至上</p>
+            <h2 class="phase-text__en">FIVE SENSES TRANSCENDED</h2>
+            <p class="phase-text__quote">Capable of tracking curses and air currents through pure biological instinct.</p>
+          </div>
+          <div class="phase-text" id="phase2">
+            <p class="phase-text__kanji">奇襲完了</p>
+            <h2 class="phase-text__en">INVERTED SPEAR OF HEAVEN</h2>
+            <p class="phase-text__quote">The absolute counter to limitless infinity.</p>
+          </div>
+          <div class="phase-text" id="phase3">
+            <p class="phase-text__kanji">覚醒</p>
+            <h2 class="phase-text__en">THE UNFETTERED CARNAGE</h2>
+            <p class="phase-text__quote">"You should be grateful you're not Satoru Gojo."</p>
+          </div>
+        </div>
+
+        <div class="scrub__readout" id="revealReadout">FRAME 001 / 071</div>
+        <div class="scrub__hint" id="heroHint">SCROLL TO ADVANCE</div>
+      </div>
+    </section>
+
+    <!-- ══════════ ACT II — PARTICLE OBJECT IDENTITY ══════════ -->
+    <section class="particles-sec" id="particles">
+      <div class="particles-canvas-wrap">
+        <canvas id="particleCanvas" aria-label="Interactive Three.js particle portrait of Toji"></canvas>
+        <img class="particles-fallback" id="particleFallback" src="art/toji-hero.jpg" alt="Toji Fushiguro portrait fallback" hidden />
+      </div>
+
+      <div class="particles-copy">
+        <span class="eyebrow">天与呪縛 · ZERO CURSED ENERGY</span>
+        <h2 class="particles-title">
+          THE ANOMALY
+          <span>呪いを持たぬ鬼才</span>
+        </h2>
+        <p class="particles-lede">
+          Completely untraceable to barrier techniques and six-eyes detection. Toji moves without leaving a single trace of cursed energy. Sweep your cursor through him to disperse his form; he reassembles with instant physical reflex.
+        </p>
+        <div class="particles-stats">
+          <div class="stat-box">
+            <b>0.00</b>
+            <i>呪力 · CURSED ENERGY</i>
+          </div>
+          <div class="stat-box">
+            <b>100%</b>
+            <i>肉体 · PHYSICAL RESTRAINT</i>
+          </div>
+          <div class="stat-box">
+            <b>2</b>
+            <i>特級 · SPECIAL GRADES HUNTED</i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ ACT III — WEAPON ARSENAL INTERACTION ══════════ -->
+    <section class="weapon-sec" id="weapon">
+      <div class="weapon-header">
+        <span class="eyebrow">特級呪具 · CURSED ARSENAL</span>
+        <h2 class="weapon-title">CHAIN OF A THOUSAND MILES</h2>
+        <p class="weapon-desc">
+          Stored within his invisible inventory curse. Connected to the Inverted Spear of Heaven, the chain extends indefinitely so long as the back end remains concealed. Drag or use arrow keys to scrub through the strike arc.
+        </p>
+      </div>
+
+      <div class="weapon-stage" id="weaponStage" tabindex="0" role="slider" aria-label="Weapon strike cycle" aria-valuemin="1" aria-valuemax="33" aria-valuenow="1">
+        <canvas id="weaponCanvas"></canvas>
+      </div>
+
+      <div class="weapon-controls">
+        <span id="weaponPos">POSITION 00%</span>
+        <div class="weapon-slider-track" id="weaponTrack">
+          <div class="weapon-slider-fill" id="weaponFill"></div>
+          <div class="weapon-slider-thumb" id="weaponThumb"></div>
+        </div>
+        <span id="weaponFrame">FRAME 001 / 033</span>
+      </div>
+      <div class="weapon-keys-hint">DRAG / SWIPE / USE [LEFT / RIGHT ARROWS]</div>
+    </section>
+
+    <!-- ══════════ ACT IV — FULL-BLEED DASH SEQUENCE ══════════ -->
+    <section class="dash-sec" id="dash">
+      <div class="dash-sticky">
+        <canvas id="dashCanvas" aria-label="Toji rush animation sequence"></canvas>
+        <div class="dash-overlay">
+          <span class="eyebrow">超音速 · SUPERSONIC DISPLACEMENT</span>
+          <h2 class="dash-title">RAW SPEED</h2>
+          <p class="phase-text__quote">
+            No cursed technique manipulation. No teleportation. Pure muscle fiber acceleration that exceeds the perception of elite jujutsu sorcerers.
+          </p>
+        </div>
+        <div class="dash-readout" id="dashReadout">0.00 ms · DISPLACEMENT</div>
+      </div>
+    </section>
+
+    <!-- ══════════ ACT V — FINAL SPOTLIGHT OUTRO ══════════ -->
+    <section class="outro-sec" id="spotlight">
+      <div class="outro-stage">
+        <img src="art/toji-final.jpg" alt="Toji Fushiguro final smirk with inventory curse" />
+        <div class="outro-spotlight-mask" id="spotlightMask" aria-hidden="true"></div>
+        <canvas class="outro-ghost-canvas" id="ghostCanvas" aria-hidden="true"></canvas>
+      </div>
+
+      <div class="outro-content">
+        <span class="eyebrow">審判 · THE AFTERMATH</span>
+        <p class="outro-quote">「運が良かったな。 お前が五条悟じゃなくて。」</p>
+        <div class="outro-sub">SORCERER KILLER · REST IN CALM</div>
+      </div>
+
+      <footer class="outro-footer">
+        <div class="outro-brand">
+          <b>TOJI FUSHIGURO ARCHIVE</b> · UNOFFICIAL TRIBUTE
+        </div>
+        <div class="outro-disclaimer">
+          Jujutsu Kaisen and all related characters and motifs are the exclusive property of Gege Akutami, Shueisha, and MAPPA. This web experience is a strictly non-commercial fan creation.
+        </div>
+        <div class="outro-nav">
+          <a href="#top">TOP ↑</a>
+        </div>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- Main Orchestration Script -->
+  <script type="module" src="toji.js"></script>
+</body>
+</html>
