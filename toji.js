@@ -41,6 +41,18 @@ function drawCover(ctx, img, cw, ch) {
   return true;
 }
 
+/* Resilient frame resolver to prevent blank flashes during fast scrolls */
+function getClosestFrame(targetArray, requestedIndex, totalCount) {
+  if (targetArray[requestedIndex]?.naturalWidth) return targetArray[requestedIndex];
+  for (let d = 1; d < totalCount; d++) {
+    const prev = requestedIndex - d;
+    if (prev >= 0 && targetArray[prev]?.naturalWidth) return targetArray[prev];
+    const next = requestedIndex + d;
+    if (next < totalCount && targetArray[next]?.naturalWidth) return targetArray[next];
+  }
+  return null;
+}
+
 /* ───────────────────────── Asset & Preload Engine ───────────────────────── */
 const REVEAL_COUNT = 71;
 const WEAPON_COUNT = 33;
@@ -88,25 +100,52 @@ function loadImageAsset(src, targetArray, index) {
   });
 }
 
+/* Bounded concurrency queue to prevent network and decode choke */
+async function loadQueue(items, concurrency = 8) {
+  let index = 0;
+  async function worker() {
+    while (index < items.length) {
+      const current = items[index++];
+      await loadImageAsset(current.src, current.array, current.idx);
+    }
+  }
+  const workers = Array.from({ length: Math.min(concurrency, items.length) }, () => worker());
+  await Promise.all(workers);
+}
+
 async function preloadAllSequences() {
-  const jobs = [];
+  const leadIn = [];
+  const background = [];
+
+  // 1. Lead-in window for instant interaction (first 18 reveal, first 8 weapon, first 15 dash)
   for (let i = 1; i <= REVEAL_COUNT; i++) {
-    jobs.push(loadImageAsset(`frames/toji-reveal/${pad(i)}.jpg`, revealFrames, i - 1));
+    const item = { src: `frames/toji-reveal/${pad(i)}.jpg`, array: revealFrames, idx: i - 1 };
+    if (i <= 18) leadIn.push(item);
+    else background.push(item);
   }
   for (let i = 1; i <= WEAPON_COUNT; i++) {
-    jobs.push(loadImageAsset(`frames/toji-weapon/${pad(i)}.jpg`, weaponFrames, i - 1));
+    const item = { src: `frames/toji-weapon/${pad(i)}.jpg`, array: weaponFrames, idx: i - 1 };
+    if (i <= 8) leadIn.push(item);
+    else background.push(item);
   }
   for (let i = 1; i <= DASH_COUNT; i++) {
-    jobs.push(loadImageAsset(`frames/toji-dash/frame_${pad(i)}.jpg`, dashFrames, i - 1));
+    const item = { src: `frames/toji-dash/frame_${pad(i)}.jpg`, array: dashFrames, idx: i - 1 };
+    if (i <= 15) leadIn.push(item);
+    else background.push(item);
   }
 
-  await Promise.all(jobs);
+  // Load essential lead-in window first with 8-channel concurrency
+  await loadQueue(leadIn, 8);
 
+  // Transition to ready state immediately
   setTimeout(() => {
     if (loaderEl) loaderEl.classList.add('done');
     document.body.classList.add('ready');
     initAllSystems();
-  }, 250);
+  }, 150);
+
+  // Stream in the remaining frames in background with 6-channel concurrency
+  loadQueue(background, 6);
 }
 
 /* ───────────────────────── System Initialization ───────────────────────── */
@@ -157,9 +196,9 @@ function initRevealScrub() {
     }
 
     const idx = Math.min(REVEAL_COUNT - 1, Math.max(0, Math.round(revealCurrentFrame)));
-    const frameImg = revealFrames[idx];
+    const frameImg = getClosestFrame(revealFrames, idx, REVEAL_COUNT);
 
-    if (frameImg && frameImg.naturalWidth) {
+    if (frameImg) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawCover(ctx, frameImg, canvas.width, canvas.height);
       if (readout) readout.textContent = `FRAME ${pad(idx + 1)} / ${pad(REVEAL_COUNT)}`;
@@ -270,9 +309,9 @@ function initWeaponScrub() {
   function renderWeapon() {
     currentProgress = lerp(currentProgress, targetProgress, 0.18);
     const frameIndex = Math.min(WEAPON_COUNT - 1, Math.max(0, Math.round(currentProgress * (WEAPON_COUNT - 1))));
-    const frameImg = weaponFrames[frameIndex];
+    const frameImg = getClosestFrame(weaponFrames, frameIndex, WEAPON_COUNT);
 
-    if (frameImg && frameImg.naturalWidth) {
+    if (frameImg) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawCover(ctx, frameImg, canvas.width, canvas.height);
     }
@@ -351,9 +390,9 @@ function initDashScrub() {
   function renderDash() {
     dashCurrentFrame = lerp(dashCurrentFrame, dashTargetFrame, 0.15);
     const idx = Math.min(DASH_COUNT - 1, Math.max(0, Math.round(dashCurrentFrame)));
-    const frameImg = dashFrames[idx];
+    const frameImg = getClosestFrame(dashFrames, idx, DASH_COUNT);
 
-    if (frameImg && frameImg.naturalWidth) {
+    if (frameImg) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawCover(ctx, frameImg, canvas.width, canvas.height);
     }
