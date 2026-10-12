@@ -59,6 +59,10 @@ body.ready main, body.ready .chrome, body.ready .rail {
 
 img { max-width: 100%; display: block; }
 
+[hidden] {
+  display: none !important;
+}
+
 ::selection {
   background: var(--crimson);
   color: var(--paper);
@@ -350,6 +354,8 @@ img { max-width: 100%; display: block; }
 .particles-fallback {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover;
+  object-position: center center;
+  transition: opacity 0.5s var(--ease);
 }
 
 .particles-copy {

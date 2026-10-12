@@ -6,6 +6,7 @@ Write-Host "=== MECHANICAL VALIDATION SCRIPT ==="
 $stills = @(
     @{ Path = "art/toji-hero.jpg"; ExpectedW = 1376; ExpectedH = 768; Codec = "mjpeg" },
     @{ Path = "art/toji-final.jpg"; ExpectedW = 1376; ExpectedH = 768; Codec = "mjpeg" },
+    @{ Path = "art/toji-portrait.jpg"; ExpectedW = 614; ExpectedH = 768; Codec = "mjpeg" },
     @{ Path = "art/particle-toji.png"; ExpectedW = 1200; ExpectedH = 896; Codec = "png"; Alpha = $true }
 )
 

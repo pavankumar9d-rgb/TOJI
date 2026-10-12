@@ -265,7 +265,12 @@ function initParticlePortrait() {
           scale: 3.6,
           yOffset: -0.2,
           cameraDistance: 4.1,
-          onError: () => {
+          onLoad: () => {
+            if (fallback) fallback.hidden = true;
+            canvas.style.display = 'block';
+          },
+          onError: (err) => {
+            console.warn('[Toji Particle Object] Fallback triggered:', err);
             if (fallback) fallback.hidden = false;
             canvas.style.display = 'none';
           }
