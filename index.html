@@ -163,25 +163,47 @@
         </p>
       </div>
 
-      <div class="weapon-stage" id="weaponStage" tabindex="0" role="slider" aria-label="Weapon strike cycle" aria-valuemin="1" aria-valuemax="33" aria-valuenow="1">
-        <canvas id="weaponCanvas"></canvas>
-      </div>
+      <div class="weapon-grid">
+        <div class="weapon-interactive">
+          <div class="weapon-stage" id="weaponStage" tabindex="0" role="slider" aria-label="Weapon strike cycle" aria-valuemin="1" aria-valuemax="33" aria-valuenow="1">
+            <canvas id="weaponCanvas"></canvas>
+          </div>
 
-      <div class="weapon-controls">
-        <span id="weaponPos">POSITION 00%</span>
-        <div class="weapon-slider-track" id="weaponTrack">
-          <div class="weapon-slider-fill" id="weaponFill"></div>
-          <div class="weapon-slider-thumb" id="weaponThumb"></div>
+          <div class="weapon-controls">
+            <span id="weaponPos">POSITION 00%</span>
+            <div class="weapon-slider-track" id="weaponTrack">
+              <div class="weapon-slider-fill" id="weaponFill"></div>
+              <div class="weapon-slider-thumb" id="weaponThumb"></div>
+            </div>
+            <span id="weaponFrame">FRAME 001 / 033</span>
+          </div>
+          <div class="weapon-keys-hint">DRAG / SWIPE / USE [LEFT / RIGHT ARROWS]</div>
         </div>
-        <span id="weaponFrame">FRAME 001 / 033</span>
+
+        <aside class="weapon-card">
+          <div class="weapon-card__media">
+            <img src="art/weapons/inverted-spear.jpg" alt="Inverted Spear of Heaven special grade cursed tool" loading="lazy" />
+          </div>
+          <div class="weapon-card__body">
+            <span class="eyebrow">特級呪具 · NULLIFICATION</span>
+            <h3 class="weapon-card__title">INVERTED SPEAR OF HEAVEN</h3>
+            <p class="weapon-card__text">
+              A dual-pronged jitte blade imbued with the continuous nullification of all cursed techniques. The singular weapon capable of halting Satoru Gojo's Limitless Infinity.
+            </p>
+            <div class="weapon-card__meta">
+              <span>GRADE: SPECIAL</span>
+              <span>EFFECT: TECHNIQUE DISRUPTION</span>
+            </div>
+          </div>
+        </aside>
       </div>
-      <div class="weapon-keys-hint">DRAG / SWIPE / USE [LEFT / RIGHT ARROWS]</div>
     </section>
 
     <!-- ══════════ ACT IV — FULL-BLEED DASH SEQUENCE ══════════ -->
     <section class="dash-sec" id="dash">
       <div class="dash-sticky">
         <canvas id="dashCanvas" aria-label="Toji rush animation sequence"></canvas>
+        <img class="dash-fallback" id="dashFallback" src="art/toji-dash-poster.jpg" alt="Toji sprint crouch poster" hidden />
         <div class="dash-overlay">
           <span class="eyebrow">超音速 · SUPERSONIC DISPLACEMENT</span>
           <h2 class="dash-title">RAW SPEED</h2>
@@ -196,7 +218,7 @@
     <!-- ══════════ ACT V — FINAL SPOTLIGHT OUTRO ══════════ -->
     <section class="outro-sec" id="spotlight">
       <div class="outro-stage">
-        <img src="art/toji-final.jpg" alt="Toji Fushiguro final smirk with inventory curse" />
+        <img src="art/toji-final.jpg" alt="Subterranean Shibuya concrete underpass chamber plate" />
         <div class="outro-spotlight-mask" id="spotlightMask" aria-hidden="true"></div>
         <canvas class="outro-ghost-canvas" id="ghostCanvas" aria-hidden="true"></canvas>
       </div>

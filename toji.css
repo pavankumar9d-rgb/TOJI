@@ -408,10 +408,20 @@ img { max-width: 100%; display: block; }
   font-size: 15px; line-height: 1.6; color: var(--mute); margin: 0;
 }
 
+.weapon-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 36px;
+  align-items: start;
+}
+.weapon-interactive {
+  display: flex;
+  flex-direction: column;
+}
 .weapon-stage {
   position: relative;
   width: 100%; aspect-ratio: 16 / 9;
-  max-height: 65vh;
+  max-height: 60vh;
   background: #000;
   border: 1px solid var(--line-heavy);
   overflow: hidden;
@@ -444,6 +454,68 @@ img { max-width: 100%; display: block; }
 }
 .weapon-keys-hint {
   font-size: 11px; letter-spacing: 0.1em; color: var(--faint);
+  margin-top: 6px;
+}
+
+/* Secondary Weapon Detail Card */
+.weapon-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s var(--ease);
+}
+.weapon-card:hover {
+  border-color: var(--crimson);
+}
+.weapon-card__media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--void);
+}
+.weapon-card__media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s var(--ease);
+}
+.weapon-card:hover .weapon-card__media img {
+  transform: scale(1.04);
+}
+.weapon-card__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.weapon-card__title {
+  font-family: var(--slab);
+  font-size: 24px;
+  letter-spacing: 0.05em;
+  color: var(--paper);
+  margin: 0;
+}
+.weapon-card__text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--mute);
+  margin: 0;
+}
+.weapon-card__meta {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--crimson-lt);
+}
+
+.dash-fallback {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -540,6 +612,7 @@ img { max-width: 100%; display: block; }
 /* ───────────────── RESPONSIVE RULES ───────────────── */
 @media (max-width: 900px) {
   .particles-sec { grid-template-columns: 1fr; gap: 40px; }
+  .weapon-grid { grid-template-columns: 1fr; gap: 28px; }
   .chrome { padding: 0 20px; }
   .chrome__nav { display: none; }
   .rail { display: none; }
