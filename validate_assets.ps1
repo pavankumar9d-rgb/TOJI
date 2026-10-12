@@ -4,9 +4,9 @@ Write-Host "=== MECHANICAL VALIDATION SCRIPT ==="
 
 # 1. Check stills
 $stills = @(
-    @{ Path = "art/toji-hero.jpg"; ExpectedW = 1920; ExpectedH = 1080; Codec = "mjpeg" },
-    @{ Path = "art/toji-final.jpg"; ExpectedW = 1920; ExpectedH = 1080; Codec = "mjpeg" },
-    @{ Path = "art/particle-toji.png"; ExpectedW = 1138; ExpectedH = 1897; Codec = "png"; Alpha = $true }
+    @{ Path = "art/toji-hero.jpg"; ExpectedW = 1376; ExpectedH = 768; Codec = "mjpeg" },
+    @{ Path = "art/toji-final.jpg"; ExpectedW = 1376; ExpectedH = 768; Codec = "mjpeg" },
+    @{ Path = "art/particle-toji.png"; ExpectedW = 1200; ExpectedH = 896; Codec = "png"; Alpha = $true }
 )
 
 foreach ($s in $stills) {

@@ -1,19 +1,24 @@
-# TOJI ASSET MANIFEST
+# TOJI ASSET MANIFEST — GOOGLE FLOW ASSETS
 
 `ASSET_GATE: PASS`
 
 ## 1. Inventory Summary
 
-| Asset ID | Exact Local File Path | Byte Size | Dimensions | Count | Source Page URL | Verified Direct File URL | Creator / Rights / License | License Confidence | Download Date | Mechanical Validation | Visual Validation | Notes |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `TOJI_HERO` | `art/toji-hero.jpg` | 182,194 B | 1920×1080 | 1 | `https://jujutsu-kaisen.fandom.com/wiki/File:Toji_(Ao_no_Sumika).jpg` | `https://static.wikia.nocookie.net/jujutsu-kaisen/images/e/ef/Toji_%28Ao_no_Sumika%29.jpg/revision/latest?cb=20231227170840&format=original` | Gege Akutami / MAPPA / Shueisha | Fair Use / Fan Project | 2026-10-12 | PASS (JPEG 1920×1080) | PASS (atmospheric, high contrast, clean, no watermarks) | Hero still & responsive fallback |
-| `TOJI_FINAL` | `art/toji-final.jpg` | 184,314 B | 1920×1080 | 1 | `https://jujutsu-kaisen.fandom.com/wiki/File:Toji_after_completing_his_mission_(Anime).png` | `https://static.wikia.nocookie.net/jujutsu-kaisen/images/d/d0/Toji_after_completing_his_mission_%28Anime%29.png/revision/latest?cb=20230728191743&format=original` | Gege Akutami / MAPPA / Shueisha | Fair Use / Fan Project | 2026-10-12 | PASS (JPEG 1920×1080) | PASS (iconic smirk, scar, inventory curse, high contrast) | Final spotlight outro plate |
-| `TOJI_PARTICLE` | `art/particle-toji.png` | 545,796 B | 1138×1897 | 1 | `https://jujutsu-kaisen.fandom.com/wiki/File:Toji_Fushiguro_Cursed_Clash.png` | `https://static.wikia.nocookie.net/jujutsu-kaisen/images/a/ac/Toji_Fushiguro_Cursed_Clash.png/revision/latest?cb=20240527150414&format=original` | Bandai Namco / Byking / Gege Akutami | Fair Use / Fan Project | 2026-10-12 | PASS (PNG RGBA true alpha) | PASS (crisp silhouette, true alpha, no halos on black/white) | Three.js point-cloud portrait source |
-| `TOJI_REVEAL_FRAMES` | `frames/toji-reveal/001.jpg` .. `071.jpg` | ~95 KB ea (total ~6.8 MB) | 1280×720 | 71 | `https://jujutsu-kaisen.fandom.com/wiki/File:Toji_exorcises_Rainbow_Dragon_(Anime).gif` | `https://static.wikia.nocookie.net/jujutsu-kaisen/images/1/15/Toji_exorcises_Rainbow_Dragon_%28Anime%29.gif/revision/latest?cb=20230727195744&format=original` | Gege Akutami / MAPPA / Shueisha | Fair Use / Fan Project | 2026-10-12 | PASS (71 frames, continuous `%03d.jpg`, 1280×720) | PASS (continuous motion, no watermarks, cinematic action) | Scroll-driven opening reveal sequence |
-| `TOJI_WEAPON_FRAMES` | `frames/toji-weapon/001.jpg` .. `033.jpg` | ~80 KB ea (total ~2.6 MB) | 1280×720 | 33 | `https://jujutsu-kaisen.fandom.com/wiki/File:Toji_wildly_swinging_his_chain_(Anime).gif` | `https://static.wikia.nocookie.net/jujutsu-kaisen/images/a/aa/Toji_wildly_swinging_his_chain_%28Anime%29.gif/revision/latest?cb=20240608033012&format=original` | Gege Akutami / MAPPA / Shueisha | Fair Use / Fan Project | 2026-10-12 | PASS (33 frames, continuous `%03d.jpg`, 1280×720) | PASS (Chain of a Thousand Miles swinging, weapon tracking) | Pointer/touch weapon scrub |
-| `TOJI_DASH_FRAMES` | `frames/toji-dash/frame_001.jpg` .. `frame_071.jpg` | ~76 KB ea (total ~5.4 MB) | 1280×720 | 71 | `https://jujutsu-kaisen.fandom.com/wiki/File:Toji_rushing_towards_Satoru_(Anime).gif` | `https://static.wikia.nocookie.net/jujutsu-kaisen/images/d/d8/Toji_rushing_towards_Satoru_%28Anime%29.gif/revision/latest?cb=20240608030353&format=original` | Gege Akutami / MAPPA / Shueisha | Fair Use / Fan Project | 2026-10-12 | PASS (71 frames, continuous `frame_%03d.jpg`, 1280×720) | PASS (physical rush/dash, air displacement, clean continuity) | Scroll-driven physical rush sequence |
+| Asset ID | Expected Name | Actual Source Path | Format / Codec | Dimensions / Duration | Chosen Destination | Validation Result | Notes |
+|---|---|---|---|---|---|---|---|
+| `TOJI_MASTER_REFERENCE` | `TOJI_MASTER_REFERENCE.png` | `TOJI_WEBSITE_ASSETS/TOJI_MASTER_REFERENCE.png_20261012201158.jpg` | JPEG / mjpeg | 1200×896 | `asset-work/reference/TOJI_MASTER_REFERENCE.jpg` | PASS | Identity reference only: facial scar, messy black hair, green eyes, muscular frame |
+| `TOJI_HERO` | `TOJI_HERO_WIDE.png` | `TOJI_WEBSITE_ASSETS/TOJI_HERO_WIDE.png_20261012201158.jpg` | JPEG / mjpeg | 1376×768 | `art/toji-hero.jpg` | PASS | Main hero artwork; full body standing pose in dark Shibuya basement |
+| `TOJI_FINAL` | `TOJI_FINAL_REVEAL_BACKGROUND.png` | `TOJI_WEBSITE_ASSETS/TOJI_FINAL_REVEAL_BACKGROUND.png_20261012201158.jpg` | JPEG / mjpeg | 1376×768 | `art/toji-final.jpg` | PASS | Background plate without character; concrete pillars and light shaft |
+| `TOJI_PARTICLE` | `TOJI_PARTICLE_PORTRAIT.png` | `TOJI_WEBSITE_ASSETS/TOJI_PARTICLE_PORTRAIT.png_20261012201158.jpg` | PNG / RGBA | 1200×896 | `art/particle-toji.png` | PASS | Processed via local despill & alpha chromakey; pure RGBA, zero green fringing, clean hair and shoulder edges |
+| `TOJI_WEAPON_DETAIL` | `TOJI_WEAPON_DETAIL.png` | `TOJI_WEBSITE_ASSETS/TOJI_WEAPON_DETAIL.png_20261012201158.jpg` | JPEG / mjpeg | 1200×896 | `art/weapons/inverted-spear.jpg` | PASS | Optional prop detail: Inverted Spear of Heaven on cracked stone |
+| `TOJI_DASH_START` | `TOJI_DASH_START.png` | `TOJI_WEBSITE_ASSETS/TOJI_DASH_START.png_20261012201158.jpg` | JPEG / mjpeg | 1376×768 | `art/toji-dash-poster.jpg` | PASS | Optional movement sequence poster: low three-point sprint crouch |
+| `TOJI_EYE_REVEAL` | `TOJI_EYE_REVEAL.mp4` | `TOJI_WEBSITE_ASSETS/TOJI_EYE_REVEAL.mp4_20261012201158.mp4` | MP4 / H.264 | 1280×720 @ 24fps (10.00s) | `frames/toji-reveal/001.jpg` .. `071.jpg` | PASS (71 frames) | Continuous eye/head zoom and reveal; uniform extraction across 10s clip |
+| `TOJI_WEAPON_SWEEP` | `TOJI_WEAPON_SWEEP.mp4` | `TOJI_WEBSITE_ASSETS/TOJI_WEAPON_SWEEP.mp4_20261012201158.mp4` | MP4 / H.264 | 1280×720 @ 24fps (10.00s) | `frames/toji-weapon/001.jpg` .. `033.jpg` | PASS (33 frames) | Continuous weapon draw and sweep; uniform extraction across 10s clip |
+| `TOJI_EXPLOSIVE_DASH` | `TOJI_EXPLOSIVE_DASH.mp4` | `TOJI_WEBSITE_ASSETS/TOJI_EXPLOSIVE_DASH.mp4_20261012201158.mp4` | MP4 / H.264 | 1280×720 @ 24fps (10.00s) | `frames/toji-dash/frame_001.jpg` .. `frame_071.jpg` | PASS (71 frames) | Continuous physical sprint and slide; uniform extraction across 10s clip |
 
-## 2. Total Counts
-- **Total Validated Image Sequences:** 3 sequences (175 frames total)
-- **Total Validated Still Images:** 3 stills (Hero still, Final outro, Particle cutout)
+## 2. Total Counts & Verification
+- **Total Validated Image Sequences:** 3 sequences (71 + 33 + 71 = 175 frames total)
+- **Total Sequence Dimensions:** Exactly 1280×720 JPEG
+- **Total Validated Stills:** 3 required stills (`toji-hero.jpg`, `toji-final.jpg`, `particle-toji.png`) + 2 optional stills (`toji-dash-poster.jpg`, `art/weapons/inverted-spear.jpg`)
+- **Particle Cutout Transparency:** 100% true RGBA, anti-aliased edge alpha, complete chroma-green suppression
 - **All Assets Local & Relative:** Yes (`art/` and `frames/`)

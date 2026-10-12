@@ -3,6 +3,7 @@ TOJI-SOURCE-REFERENCE/
 
 # Temporary video source downloads and processing work
 asset-work/
+TOJI_WEBSITE_ASSETS/
 
 # IDE / System artifacts
 .system_generated/
